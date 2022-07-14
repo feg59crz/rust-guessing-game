@@ -16,7 +16,13 @@ fn main() {
             .read_line(&mut guess)
             .expect("Failed to read line");
 
-        let guess: u32 = guess.trim().parse().expect("Please type a number!"); // convert guess to u32
+        let guess: u32 = match guess.trim().parse() { // match the result of parse if isn't a number
+            Ok(num) => num,
+            Err(_) => {
+                println!("Please! Type a number!");
+                continue;           
+            }
+        };// é uma atribuição então tem ;
 
         println!("You guessed: {guess}");
         match guess.cmp(&secret_number) {
